@@ -16,28 +16,28 @@ user_states = {}
 
 # Функция старта
 def start(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text('Привет! Пожалуйста, введите пароль для доступа к функционалу.')
+    update.message.reply_text('Стоит два стула: на одном Пики точенные, на другом Хуи дроченные. На какой сам сядешь? На какой мать посадишь?')
 
 # Функция для возврата к вводу пароля
 def back_to_the_future(update: Update, context: CallbackContext) -> None:
     user_id = update.message.from_user.id
     if user_id in user_states:
         del user_states[user_id]
-    update.message.reply_text('Вы вернулись к этапу ввода пароля. Пожалуйста, введите пароль для доступа к функционалу.')
+    update.message.reply_text('Бэк ту зэ фьюче! Введи пароль!')
 
 # Обработка паролей
 def handle_password(update: Update, context: CallbackContext) -> None:
     user_id = update.message.from_user.id
     password = update.message.text.strip()
     
-    if password == 'Один':
+    if password == 'Пики точенные':
         user_states[user_id] = 'mode_1'
-        update.message.reply_text('Доступ к функционалу 1 открыт. Введите число для расчета.')
-    elif password == 'Два':
+        update.message.reply_text('Введи сумму с сайта.')
+    elif password == 'Хуи дроченные':
         user_states[user_id] = 'mode_2'
-        update.message.reply_text('Доступ к функционалу 2 открыт. Введите число для расчета.')
+        update.message.reply_text('Введи сумму с сайта.')
     else:
-        update.message.reply_text('Неверный пароль. Пожалуйста, попробуйте снова.')
+        update.message.reply_text('Неверный пароль. Давай шуруй отсюда')
 
 # Обработка чисел
 def handle_number(update: Update, context: CallbackContext) -> None:
@@ -45,7 +45,7 @@ def handle_number(update: Update, context: CallbackContext) -> None:
     mode = user_states.get(user_id)
 
     if mode is None:
-        update.message.reply_text('Пожалуйста, сначала введите пароль.')
+        update.message.reply_text('Э.. Олень, сперва пароль введи.')
         return
 
     try:
@@ -67,10 +67,10 @@ def handle_number(update: Update, context: CallbackContext) -> None:
         # Форматирование результата с пробелами между каждыми тремя цифрами
         formatted_total = "{:,.0f}".format(TOTAL).replace(",", " ")
 
-        update.message.reply_text(f"Результат: {formatted_total}")
+        update.message.reply_text(f"Итого : {formatted_total}")
     
     except ValueError:
-        update.message.reply_text('Пожалуйста, введите правильное число.')
+        update.message.reply_text('Руки из жопы?')
 
 def main() -> None:
     # Создание Updater и передача ему токена
